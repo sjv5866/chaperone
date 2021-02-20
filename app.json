@@ -1,0 +1,12 @@
+{
+  "name": "chaperone",
+  "displayName": "chaperone",
+  "expo": {
+    "name": "chaperone",
+    "slug": "chaperone",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

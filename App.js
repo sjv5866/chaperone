@@ -8,13 +8,14 @@ import Login from './components/login';
 import Signup from './components/signup';
 import Dashboard from './components/dashboard';
 import ProduceSearch from './components/producesearch';
+import ItemInfo from './components/iteminfo';
 
 const Stack = createStackNavigator();
 
 function MyStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Signup"
+      initialRouteName="Login"
       screenOptions={{
         headerTitleAlign: 'center',
         headerStyle: {
@@ -54,6 +55,14 @@ function MyStack() {
          {headerLeft: null} 
        }
       />
+      <Stack.Screen 
+      name="ItemInfo" 
+      component={ItemInfo} 
+      options={
+        { title: 'ItemInfo' },
+        {headerLeft: null} 
+      }
+     />
     </Stack.Navigator>
   );
 }

@@ -17,7 +17,7 @@ export default class Dashboard extends Component {
       this.props.navigation.navigate('Login')
     })
     .catch(error => this.setState({ errorMessage: error.message }))
-  }  
+  }
 
   render() {
     this.state = { 
@@ -26,9 +26,12 @@ export default class Dashboard extends Component {
     }    
     return (
       <View style={styles.container}>
-        <Text style = {styles.textStyle}>
-          Hello, {this.state.displayName}
-        </Text>
+
+        <Button
+          color="#3740FE"
+          title="Search Hangover-mending Products"
+          onPress={() => this.props.navigation.push('ProduceSearch')}
+        />
 
         <Button
           color="#3740FE"

@@ -2,18 +2,22 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, SafeAreaView, Text, Button, TextInput, TouchableOpacity, FlatList } from 'react-native';
-//import firebase from '../database/firebase';
-import SearchBar from 'react-native-elements';
+import firebase from '../database/firebase';
+import { SearchBar } from 'react-native-elements';
+import axios from 'axios';
 
 export default class ProduceSearch extends Component {
   constructor() {
     super();
     this.state = { 
       uid: '',
-      query: '',
-      results: [],
-      refreshing: true,
-    }
+      queryy: '',
+      test: '',
+      results: []
+    };
+  }
+
+  componentDidUpdate(prevState, prevProps) {
   }
 
   ItemSeparator = () => {
@@ -25,38 +29,51 @@ export default class ProduceSearch extends Component {
     }}
     />);
   }
-  handleChange = text => {
-    this.setState({query: text});
-  }
 
-  queryProduce = text => {
-    this.setState({ refreshing: true, query: text });
-    fetch(`https://api.wegmans.io/products/search?query=${text}`)
+  queryProduce = () => {
+    axios.get(`https://api.wegmans.io/products/search?query=salad&results=100&page=1&api-version=2018-10-18`)
       .then(res => res.json())
-      .then(data => this.setState({results: data.results, refreshing: false}))
+      .then(data => console.log(data))
       .catch(e => console.log(e));
+      console.log(this.state);
   }
 
-  handleRefresh = () => {
-    this.setState({ refreshing: false }, () => { this.queryProduce() }); // call fetchCats after setting the state
-  }
+//   handleRefresh = () => {
+//     this.setState({ refreshing: false }, () => { this.queryProduce(this.state.query) }); // call fetchCats after setting the state
+//   }
 
   render() {
     // this.state = { 
     //   displayName: firebase.auth().currentUser.displayName,
     //   uid: firebase.auth().currentUser.uid
     // }    
+    const { queryy } = this.state;
+    console.log("value: ", this.state);
     return (
       <View style={styles.container}>
-        <View style={styles.searchSection}>
-            <SearchBar
-              searchIcon={{ size: 25 }}
-              placeholder="search for produce from Wegmans"
-              onChange={text => this.queryProduce(text)}
-              value={this.state.query}
-            />
-        </View>
         <SafeAreaView>
+            <View >
+                {/* <SearchBar
+                  style={styles.searchBar}
+                  platform="android"
+                  searchIcon={{ size: 25 }}
+                  placeholder="search for Wegman produce"
+                  value={this.state.queryy}
+                  ref={input => this.search = input}
+                  onChangeText={() => this.handleChange}
+                /> */}
+                <SearchBar
+                  style={styles.searchBar}
+                  platform="android"
+                  searchIcon={{size: 25}}
+                  placeholder="test"
+                  value={this.state.test}
+                />
+                <Button 
+                  title="submit"
+                  onPress={() => this.queryProduce()}
+                />
+            </View>
             <FlatList
               data={this.state.results}
               renderItem={item => {
@@ -86,9 +103,10 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch',
     padding: 35,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    width: "100%"
   },
   textStyle: {
     fontSize: 15,
@@ -97,8 +115,9 @@ const styles = StyleSheet.create({
   searchSection: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    paddingBottom: 30,
     backgroundColor: '#fff',
   },
   searchIcon: {
@@ -112,7 +131,12 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 10,
     paddingLeft: 0,
-    backgroundColor: '#fff',
-    color: '#424242',
+    width: "100%"
+  },
+  searchBar: {
+      width: "100%",
+      flex: 1,
+      borderBottomColor: 'transparent',
+      borderTopColor: 'transparent'
   }
 });

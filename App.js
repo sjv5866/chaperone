@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './components/login';
 import Signup from './components/signup';
 import Dashboard from './components/dashboard';
+import ProduceSearch from './components/producesearch';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,14 @@ function MyStack() {
        component={Dashboard} 
        options={
          { title: 'Dashboard' },
+         {headerLeft: null} 
+       }
+      />
+      <Stack.Screen 
+       name="ProduceSearch" 
+       component={ProduceSearch} 
+       options={
+         { title: 'Search for Groceries' },
          {headerLeft: null} 
        }
       />

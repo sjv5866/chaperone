@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator } from 'react-native';
 import firebase from '../database/firebase';
 
+//import RNPasswordStrengthMeter from 'react-native-password-strength-meter';
+
 
 export default class Signup extends Component {
   
@@ -13,7 +15,8 @@ export default class Signup extends Component {
       displayName: '',
       email: '', 
       password: '',
-      isLoading: false
+      isLoading: false,
+      buttonDisabled: true
     }
   }
 
@@ -21,11 +24,15 @@ export default class Signup extends Component {
     const state = this.state;
     state[prop] = val;
     this.setState(state);
+    let enableCriteria = this.state.displayName.length > 0 && this.state.email.length > 0 && this.state.password.length >= 6;
+    this.setState({buttonDisabled: !enableCriteria});
   }
 
   registerUser = () => {
     if(this.state.email === '' && this.state.password === '') {
       Alert.alert('Enter details to signup!')
+    } else if (this.state.password.length < 6) {
+      Alert.alert('Your password must be six characters or greater!')
     } else {
       this.setState({
         isLoading: true,
@@ -59,10 +66,7 @@ export default class Signup extends Component {
       )
     }    
     return (
-      <View style={styles.container}>
-        <Text> 
-          Create your account here (MAKE SURE YOUR PASSWORD IS AT LEAST 6 CHARACTERS LONG)
-        </Text>   
+      <View style={styles.container}> 
         <TextInput
           style={styles.inputStyle}
           placeholder="Name"
@@ -77,13 +81,14 @@ export default class Signup extends Component {
         />
         <TextInput
           style={styles.inputStyle}
-          placeholder="Password"
+          placeholder="Password (at least 6 characters long)"
           value={this.state.password}
           onChangeText={(val) => this.updateInputVal(val, 'password')}
           maxLength={15}
           secureTextEntry={true}
         />   
-        <Button
+        <Button 
+          disabled={this.state.buttonDisabled}
           color="#3740FE"
           title="Signup"
           onPress={() => this.registerUser()}

@@ -8,7 +8,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-native-fontawesome": "^0.2.6",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-firebase/messaging": "^10.8.0",
     "@react-navigation/native": "^5.9.2",
     "@react-navigation/stack": "^5.14.2",
     "expo": "~40.0.0",
@@ -21,6 +25,7 @@
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",
     "react-native-gesture-handler": "^1.10.1",
+    "react-native-password-strength-meter": "^0.0.5",
     "react-native-radar": "^3.0.6",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
